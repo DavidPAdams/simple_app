@@ -2,7 +2,7 @@
 <h1>Update your profile</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user, url: edit_user_path) do |f| %>
+    <%= form_for(@user) do |f| %>
       <div class="form-group">
         <%= render 'shared/error_messages' %>
         <%= f.label :name %>
@@ -16,5 +16,9 @@
         <%= f.submit "Edit my profile", class: "form-control btn btn-warning" %>
       </div>
     <% end %>
+    <div class="gravatar-edit">
+      <%= gravatar_for @user %>
+      <a href="http://gravatar.com/emails" target="_blank" rel="noopener">Change</a>
+    </div>
   </div>
 </div>
