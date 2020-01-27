@@ -7,4 +7,9 @@ invalid:
   name:
   email: invalid@example..com
   password_digest: <%= User.digest('password') %>
-  
+
+teapot:
+  name: Sterling Silver
+  email: surfer@example.gov
+  password_digest: <%= User.digest('password') %>
+
