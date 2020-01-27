@@ -49,4 +49,15 @@ module SessionsHelper
     user == current_user
   end
 
+  #redirects to stored location or to the input
+  def redirect_back_or(input)
+    redirect_to(session[:forwarding_url] || input)
+    session.delete(:forwarding_url)
+  end
+
+  #stores the url trying to be accessed
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+
 end
