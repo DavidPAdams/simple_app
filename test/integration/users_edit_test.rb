@@ -21,21 +21,23 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_select 'div.field_with_errors', count: 8
   end
 
-  test "successful profile edit" do
-    log_in_as(@valid_user)
+  test "successful profile edit with friendly forwarding" do
     get edit_user_path(@valid_user)
-    assert_template "users/edit"
+    log_in_as(@valid_user)
+    assert_redirected_to edit_user_url(@valid_user)
+    name = "Jack Frost"
+    email = "icy@snowcave.com"
     patch user_path(@valid_user), params: {
-                                    user: { 
-                                      name: "Jack Frost",
-                                      email: "icy@snowcave.com",
+                                    user: {
+                                      name: name,
+                                      email: email,
                                       password: "",
                                       password_confirmation: "" } }
     assert_not flash.empty?
     assert_redirected_to @valid_user
     @valid_user.reload
-    assert_equal "Jack Frost", @valid_user.name
-    assert_equal "icy@snowcave.com", @valid_user.email
+    assert_equal name, @valid_user.name
+    assert_equal email, @valid_user.email
   end
 
   test "should redirect edit when not logged in" do
