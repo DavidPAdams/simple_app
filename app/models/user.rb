@@ -17,6 +17,8 @@ class User < ApplicationRecord
                        length: { minimum: 8 },
                        allow_nil: true
 
+  self.per_page = 5
+  
   #return the hash digest of input string
   def User.digest(strng)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
