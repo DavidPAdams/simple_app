@@ -41,8 +41,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    dead_user = @user.name
     @user.destroy
-    flash[:success] = "User was killed by admin"
+    flash[:success] = "#{dead_user} was killed by the admin known as #{current_user.name}"
     redirect_to users_url
   end
 
