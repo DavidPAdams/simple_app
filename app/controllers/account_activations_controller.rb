@@ -3,7 +3,7 @@ class AccountActivationsController < ApplicationController
   def edit
     user = User.find_by(email: params[:email])
     if user
-      if user.activated?
+      unless user.activated?
         if user.authenticated?(:activation, params[:id])
           user.activate
           log_in user
@@ -14,7 +14,7 @@ class AccountActivationsController < ApplicationController
           redirect_to root_url
         end
       else
-        flash[:info] = "Waaa, user isn't activated?"
+        flash[:info] = "Waaa, user is already activated?"
         redirect_to root_url
       end
     else
