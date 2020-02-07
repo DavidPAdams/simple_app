@@ -29,15 +29,18 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)
-    assert_not user.activated?
+    assert_not user.reload.activated?
     #Attempt log in before account activation
     log_in_as(user)
+    assert_not user.reload.activated?
     assert_not is_logged_in?
     #Catch case of invalid activation token
     get edit_account_activation_path("invalid token", email: user.email)
+    assert_not user.reload.activated?
     assert_not is_logged_in?
     #Catch case of valid token with wrong email
     get edit_account_activation_path(user.activation_token, email: "wrong")
+    assert_not user.reload.activated?
     assert_not is_logged_in?
     #Log in with valid activation token and valid email
     get edit_account_activation_path(user.activation_token, email: user.email)
