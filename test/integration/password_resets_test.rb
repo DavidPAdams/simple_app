@@ -29,6 +29,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     user.toggle!(:activated)
     get edit_password_reset_path(user.reset_token, email: user.email)
     assert_redirected_to root_url
+    user.toggle!(:activated)
     #good email, bad reset token
     get edit_password_reset_path('wrong token', email: user.email)
     assert_redirected_to root_url
@@ -41,7 +42,7 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
     #empty password
     patch password_reset_path(user.reset_token), params: { email: user.email, user: { password: "", password_confirmation: "" } }
-    assert.assert_select 'div#error_explanation'
+    assert_select 'div#error_explanation'
     #valid password and confirmation
     patch password_reset_path(user.reset_token), params: { email: user.email, user: { password: "boobarbaz", password_confirmation: "boobarbaz" } }
     assert is_logged_in?
