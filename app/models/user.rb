@@ -17,6 +17,8 @@ class User < ApplicationRecord
                        length: { minimum: 8 },
                        allow_nil: true
 
+  has_many :microposts, dependent: :destroy
+
   self.per_page = 5
   
   #return the hash digest of input string
