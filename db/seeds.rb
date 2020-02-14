@@ -27,8 +27,15 @@ User.create!(name: "Example User",
 end
 
 users = User.order(:created_at).take(20)
-20.times do
+40.times do
   content = Faker::ChuckNorris.fact
   users.each { |user| user.microposts.create!(content: content) }
 end
 
+# Following relationships
+users = User.all
+user  = users.first
+following = users[2..70]
+followers = users[3..60]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
