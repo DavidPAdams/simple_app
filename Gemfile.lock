@@ -415,7 +415,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (= 3.1.12)
-  bootstrap-sass (= 3.4.1)
+  bootstrap-sass (>= 3.4.1)
   bootstrap-will_paginate (= 1.0.0)
   byebug (= 9.0.6)
   carrierwave (= 1.2.2)
@@ -427,7 +427,7 @@ DEPENDENCIES
   jbuilder (= 2.7.0)
   jquery-rails (= 4.3.1)
   listen (= 3.1.5)
-  mini_magick (= 4.9.4)
+  mini_magick (>= 4.9.4)
   minitest (= 5.10.3)
   minitest-reporters (= 1.1.14)
   pg (= 0.20.0)
