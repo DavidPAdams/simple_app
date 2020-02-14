@@ -3,7 +3,7 @@ orange:
   created_at: <%= 10.minutes.ago %>
   user: lana
 
-latest:
+last_one:
   content: "Writing a short test"
   created_at: <%= 1.second.ago %>
   user: lana
