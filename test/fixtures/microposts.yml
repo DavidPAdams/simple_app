@@ -3,16 +3,6 @@ orange:
   created_at: <%= 10.minutes.ago %>
   user: lana
 
-tau_manifesto:
-  content: "Check out the @tauday site by @mhartl: http://tauday.com"
-  created_at: <%= 3.years.ago %>
-  user: lana
-
-cat_video:
-  content: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
-  created_at: <%= 20.days.ago %>
-  user: lana
-
 latest:
   content: "Writing a short test"
   created_at: <%= 1.second.ago %>
@@ -22,6 +12,13 @@ latest:
 micropost_<%= n %>:
   content: <%= Faker::Lorem.sentence(3) %>
   created_at: <%= 45.days.ago %>
+  user: michael
+<% end %>
+
+<% 10.times do |m| %>
+micropost_<%= m %>:
+  content: <%= Faker::ChuckNorris.fact %>
+  created_at: <%= 15.minutes.ago %>
   user: lana
 <% end %>
 
