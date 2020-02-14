@@ -15,7 +15,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     assert_select 'h1>img.gravatar'
     assert_match @user.microposts.count.to_s, response.body
     assert_select 'div.pagination', count: 1
-    @user.microposts.most_recent.paginate(page: 1).each do |micropost|
+    @user.microposts.most_recent.paginate(page: 2).each do |micropost|
       assert_select 'span.content', micropost.content
     end
   end
