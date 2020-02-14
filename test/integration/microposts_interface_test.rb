@@ -25,9 +25,9 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_match content, response.body
     #delete a micropost
     assert_select 'a', text: 'delete'
-    first_micropost = @user.microposts.most_recent.paginate(page: 1).first
+    last_micropost = @user.microposts.most_recent.last
     assert_difference 'Micropost.count', -1 do
-      delete micropost_path(first_micropost)
+      delete micropost_path(last_micropost)
     end
     #no delete links on different user page
     get user_path(users(:archer))
