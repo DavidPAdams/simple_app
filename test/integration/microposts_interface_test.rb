@@ -10,6 +10,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get root_path
     assert_select 'div.pagination'
+    assert_select 'input[type="file"]'
     #invalid micropost submit
     assert_no_difference 'Micropost.count' do
       post microposts_path, params: { micropost: { content: " " } }
@@ -17,9 +18,11 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_select 'div#error_explanation'
     #valid micropost submit
     content = "This is valid content for a micropost"
+    picture = fixture_file_upload('test/fixtures/rails.png', 'image/png')
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: content } }
+      post microposts_path, params: { micropost: { content: content, picture: picture } }
     end
+    assert assigns(:micropost).picture?
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
@@ -43,6 +46,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(loser_user)
     get root_path
     assert_match "0 microposts", response.body
+    #user has one micropost
     loser_user.microposts.create!(content: "I'm not a loser!")
     get root_path
     assert_match "1 micropost", response.body
