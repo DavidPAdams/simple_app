@@ -25,7 +25,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship",
                                    foreign_key: "followed_id",
                                    dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :followers, through: :passive_relationships
 
   self.per_page = 5
   
@@ -86,6 +86,21 @@ class User < ApplicationRecord
 
   def feed
     Micropost.most_recent.where("user_id = ?", id)
+  end
+
+  #follow a user
+  def follow(other_user)
+    following << other_user
+  end
+
+  #unfollow a user
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  #returns boolean on current user following another user
+  def following?(other_user)
+    following.include?(other_user)
   end
 
   private
